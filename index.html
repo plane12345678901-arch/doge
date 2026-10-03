@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dungeon Bumbles</title>
+  <title>Dungeon Sprites</title>
   <style>
     :root {
       --ink: #251b38;
@@ -140,11 +140,11 @@
 </head>
 <body>
   <main class="page">
-    <section class="cabinet" aria-label="Dungeon Bumbles game">
+    <section class="cabinet" aria-label="Dungeon Sprites game">
       <header class="topbar">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true"></div>
-          <div><p class="eyebrow">A tiny adventure</p><h1>DUNGEON BUMBLES</h1></div>
+          <div><p class="eyebrow">A tiny adventure</p><h1>DUNGEON SPRITES</h1></div>
         </div>
         <div class="version">BUILD 08 // LOCAL</div>
       </header>
@@ -153,7 +153,7 @@
         <section id="titleScreen" class="screen active hero-screen">
           <div class="hero-card">
             <p class="eyebrow">WELCOME, LITTLE HERO</p>
-            <h2 class="pixel-title">BUMP.<br>FIGHT.<br>BUMBLE.</h2>
+            <h2 class="pixel-title">DASH.<br>FIGHT.<br>SURVIVE.</h2>
             <p class="subtitle">A cozy-cursed 8-bit dungeon crawler. Explore room by room, bonk monsters, find snacks, and see how deep your tiny boots can go.</p>
             <button id="startBtn" class="start-button">▶ Start game</button>
             <div class="keys"><span><kbd>WASD</kbd> move</span><span><kbd>ARROWS</kbd> move</span><span><kbd>SPACE</kbd> attack</span><span><kbd>1 / 2</kbd> sword / arrow</span></div>
@@ -162,7 +162,7 @@
 
         <section id="gameScreen" class="screen">
           <div class="hud">
-            <div class="hud-box"><span class="hud-label">BUMBLE HP</span><div class="bar"><span id="hpBar"></span></div></div>
+            <div class="hud-box"><span class="hud-label">HERO HP</span><div class="bar"><span id="hpBar"></span></div></div>
             <div class="hud-box"><span class="hud-label">DUNGEON</span><div class="stat-line"><span>ROOM</span><strong id="roomStat">01</strong></div></div>
             <div class="hud-box"><span class="hud-label">SCORE</span><div class="stat-line"><span>✦</span><strong id="scoreStat">000</strong></div></div>
           </div>
@@ -217,7 +217,7 @@
           1: [{ x: 15, y: 7, type: 'Gloom Bug' }, { x: 9, y: 12, type: 'Gloom Bug' }],
           2: [{ x: 15, y: 3, type: 'Moss Muncher' }, { x: 14, y: 8, type: 'Moss Muncher' }, { x: 19, y: 11, type: 'Gloom Bug' }],
           3: [{ x: 15, y: 3, type: 'Moss Muncher' }, { x: 14, y: 8, type: 'Gloom Bug' }, { x: 19, y: 11, type: 'Gloom Bug' }, { x: 9, y: 8, type: 'Moss Muncher' }],
-          4: [{ x: 18, y: 8, type: 'Dread Bumbler', boss: true }]
+          4: [{ x: 18, y: 8, type: 'Dread Sprite', boss: true }]
         };
         return {
         enemies: enemySets[room].map(enemy => ({ ...enemy, alive: true, hits: 0, requiredHits: 0 })),
@@ -299,10 +299,10 @@
           if (!state.key.collected) { say('The door is locked. Find the tiny golden key first.'); return; }
           if (state.enemies.some(enemy => enemy.alive)) { say('The door is locked. Every monster must be defeated first.'); return; }
           if (state.room >= 4) { finish(true); return; }
-          state.room++; state.score += 100; state.player = { x: 3, y: 8 }; Object.assign(state, createRoom(state.room)); updateHud(); say(state.room === 4 ? 'LEVEL 4: The Dread Bumbler awaits beyond the walls!' : 'Deeper! Room ' + String(state.room).padStart(2, '0') + ' has more monsters and trickier walls.'); render();
+          state.room++; state.score += 100; state.player = { x: 3, y: 8 }; Object.assign(state, createRoom(state.room)); updateHud(); say(state.room === 4 ? 'LEVEL 4: The Dread Sprite awaits beyond the walls!' : 'Deeper! Room ' + String(state.room).padStart(2, '0') + ' has more monsters and trickier walls.'); render();
         }
       }
-      function finish(won) { state.gameOver = !won; state.won = won; show(endScreen); endTitle.textContent = won ? 'DUNGEON BUMBLED!' : 'THE DUNGEON WINS'; endResult.innerHTML = won ? 'You reached the bottom with <b>' + state.score + ' points</b> and ' + state.hp + ' HP left.<br>The dungeon is already nervous about your rematch.' : 'You made it to room ' + state.room + ' with <b>' + state.score + ' points</b>.<br>That was a brave little run.'; }
+      function finish(won) { state.gameOver = !won; state.won = won; show(endScreen); endTitle.textContent = won ? 'DUNGEON CLEARED!' : 'THE DUNGEON WINS'; endResult.innerHTML = won ? 'You reached the bottom with <b>' + state.score + ' points</b> and ' + state.hp + ' HP left.<br>The dungeon is already nervous about your rematch.' : 'You made it to room ' + state.room + ' with <b>' + state.score + ' points</b>.<br>That was a brave little run.'; }
 
       function drawTile(x, y, color) { ctx.fillStyle = color; ctx.fillRect(x * TILE, y * TILE, TILE, TILE); }
       function pixelRect(x, y, w, h, color) { ctx.fillStyle = color; ctx.fillRect(x, y, w, h); }
